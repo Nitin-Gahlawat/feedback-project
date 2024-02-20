@@ -67,7 +67,7 @@ include __Dir__.'\comman\bootstrap.php';
 <body>
 <div class="outer-flex">
     <h2>Student Information Form</h2>
-    <form action="./AfterRegister.php" method="post">
+    <form action="./Login.php" method="post">
         <label for="roll_number">Roll Number:</label><br>
         <input type="number" id="roll_number" name="roll_number" required><br>
 
@@ -86,7 +86,7 @@ include __Dir__.'\comman\bootstrap.php';
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" name="RegisterSumbit">
         <a href=".\Login.php" >
             <button type="button" class="btn btn-primary">SignIn</button>
         </a>
