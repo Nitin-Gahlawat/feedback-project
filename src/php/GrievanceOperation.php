@@ -1,10 +1,16 @@
+<!-- Notes
+
+//operation update for the table a table name is given as a data member
+
+ -->
 <?php
-class StudentOpration {
+
+class GrievanceOperation {
     private $servername = "localhost";
     private $username = "root";
     private $password = "";
     private $dbname = "feedback";
-    private $table= "Student";
+    private $table='grievance';     //operation update for the table
 
     // Establishing database connection
     private function connect() {
@@ -16,12 +22,12 @@ class StudentOpration {
     }
 
     // Insert data into $this->table table
-    public function insertStudent($roll_number, $name, $semester, $branch, $college, $password) {
+    public function insertGrievance($roll, $msg, $subject, $dateTime) {
         $conn = $this->connect();
-        $sql = "INSERT INTO $this->table (roll_number, name, semester, branch, college, password)
-                VALUES ('$roll_number', '$name', '$semester', '$branch', '$college', '$password')";
+        $sql = "INSERT INTO $this->table (roll, msg, subject, dateTime)
+                VALUES ('$roll', '$msg', '$subject', '$dateTime')";
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully<br>";
+            echo "New record created successfully";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -29,11 +35,11 @@ class StudentOpration {
     }
 
     // Update data in $this->table table
-    public function updateStudent($roll_number, $name, $semester, $branch, $college, $password) {
+    public function updateGrievance($roll, $msg, $subject, $dateTime) {
         $conn = $this->connect();
         $sql = "UPDATE $this->table
-                SET name='$name', semester='$semester', branch='$branch', college='$college', password='$password'
-                WHERE roll_number='$roll_number'";
+                SET msg='$msg', subject='$subject', dateTime='$dateTime'
+                WHERE roll='$roll'";
         if ($conn->query($sql) === TRUE) {
             echo "Record updated successfully";
         } else {
@@ -43,9 +49,9 @@ class StudentOpration {
     }
 
     // Delete data from $this->table table
-    public function deleteStudent($roll_number) {
+    public function deleteGrievance($roll) {
         $conn = $this->connect();
-        $sql = "DELETE FROM $this->table WHERE roll_number='$roll_number'";
+        $sql = "DELETE FROM $this->table WHERE roll='$roll'";
         if ($conn->query($sql) === TRUE) {
             echo "Record deleted successfully";
         } else {
@@ -54,13 +60,26 @@ class StudentOpration {
         $conn->close();
     }
 
-
-    public function selectStudent($roll_number) {
+    // Select all data from $this->table table
+    public function selectAllGrievances() {
         $conn = $this->connect();
-        $sql = "SELECT * from $this->table WHERE roll_number='$roll_number'";
-
+        $sql = "SELECT * FROM $this->table";
         $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                print_r($row);
+            }
+        } else {
+            echo "0 results";
+        }
+        $conn->close();
+    }
 
+
+    public function selectGrievances($roll) {
+        $conn = $this->connect();
+        $sql = "SELECT * FROM $this->table where roll='$roll'";
+        $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 foreach ($row as $key => $value) {
@@ -71,21 +90,8 @@ class StudentOpration {
         } else {
             echo "0 results";
         }
+        
         $conn->close();
     }
-    public function chkStudent($uname,$password) {
-        $conn = $this->connect();
-        $sql = "SELECT * from $this->table WHERE roll_number ='$uname' and password='$password';";
-        $result = $conn->query($sql);
-        if ($result->num_rows == 1 ) {
-            return true;
-            // echo "exist";
-        } else {
-            return false;
-            // echo "nononononononon";
-        }
-        $conn->close();
-    }
-
 }
 ?>

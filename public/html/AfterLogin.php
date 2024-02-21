@@ -4,7 +4,7 @@ include __Dir__.'\comman\bootstrap.php';
 
 <?php
 require_once dirname(__FILE__,3).'/src/php/StudentOpration.php';
-
+require_once dirname(__FILE__,3).'/src/php/GrievanceOperation.php';
     $ob=new StudentOpration();
 
     $rollno = $_POST["rollnum"];
@@ -38,6 +38,13 @@ require_once dirname(__FILE__,3).'/src/php/StudentOpration.php';
 include __Dir__.'\components\navbar.php';
 include __Dir__.'\components\tabs.php';
 echo '<h1>'.$_SESSION["rollnum"].'</h1>';
+
+echo "<br>".$_POST["TypesUser"]."<br><br>";
+
+
+$go=new GrievanceOperation();
+$go->selectGrievances($rollno);
+
 ?>
 
 </body>

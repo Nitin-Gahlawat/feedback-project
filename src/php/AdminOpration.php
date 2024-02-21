@@ -5,7 +5,7 @@ class AdminOpration {
     private $username = "root";
     private $password = "";
     private $dbname = "feedback";
-
+    private $table="Admins";
     // Establishing database connection
     private function connect() {
         $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
@@ -15,10 +15,10 @@ class AdminOpration {
         return $conn;
     }
 
-    // Insert data into Admins table
+    // Insert data into $this->table table
     public function insertAdmin($username, $password) {
         $conn = $this->connect();
-        $sql = "INSERT INTO Admins (username, password)
+        $sql = "INSERT INTO $this->table (username, password)
                 VALUES ('$username', '$password')";
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
@@ -28,10 +28,10 @@ class AdminOpration {
         $conn->close();
     }
 
-    // Update data in Admins table
+    // Update data in $this->table table
     public function updateAdmin($adminid, $username, $password) {
         $conn = $this->connect();
-        $sql = "UPDATE Admins
+        $sql = "UPDATE $this->table
                 SET username='$username', password='$password'
                 WHERE adminid='$adminid'";
         if ($conn->query($sql) === TRUE) {
@@ -42,10 +42,10 @@ class AdminOpration {
         $conn->close();
     }
 
-    // Delete data from Admins table
+    // Delete data from $this->table table
     public function deleteAdmin($adminid) {
         $conn = $this->connect();
-        $sql = "DELETE FROM Admins WHERE adminid='$adminid'";
+        $sql = "DELETE FROM $this->table WHERE adminid='$adminid'";
         if ($conn->query($sql) === TRUE) {
             echo "Record deleted successfully";
         } else {

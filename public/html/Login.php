@@ -61,7 +61,7 @@ if(isset($_POST['RegisterSumbit'])){
     <h1>Sign in</h1>
     <form action="./AfterLogin.php" method="post">
     
-    <div class="mb-2">
+    <!-- <div class="mb-2">
     <label for="exampleFormControlInput1" class="form-label">User Type</label>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,7 +72,13 @@ if(isset($_POST['RegisterSumbit'])){
         <li><a class="dropdown-item" href="#">Admin</a></li>
       </ul>
     </div>
-      </div>
+      </div> -->
+
+      
+      <select name="TypesUser" id="TypesUser">
+        <option value="Students">Students</option>
+        <option value="Admin">Admin</option>
+      </select>
 
       <div class="mb-2">
         <label for="exampleFormControlInput1" class="form-label">Roll Number</label>
@@ -88,7 +94,6 @@ if(isset($_POST['RegisterSumbit'])){
         <button type="button" class="btn btn-primary">SignUp</button>
       </a>
     </form>
-
   </div>
 </body>
 
