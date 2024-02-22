@@ -1,24 +1,83 @@
+ <!--included php files   -->
+
  <?php
 include __Dir__.'\comman\bootstrap.php';
-if(isset($_POST['RegisterSumbit'])){
-  require_once dirname(__FILE__,3).'/src/php/StudentOpration.php';
-  $ob=new StudentOpration();
+require_once dirname(__FILE__,3).'/src/php/StudentOpration.php';
+require_once dirname(__FILE__,3).'/src/php/GrievanceOperation.php';
+require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
 
-  $roll_number = $_POST["roll_number"];
-  $name = $_POST["name"];
-  $semester = $_POST["semester"];
-  $branch = $_POST["branch"];
-  $college = $_POST["college"];
-  $password = $_POST["password"];
-  if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      $ob->insertStudent($roll_number, $name, $semester, $branch, $college, $password);
-  } else {
-      echo "Invalid request method";
+
+?>
+ 
+ <?php
+
+   // if the data is registed by the students
+    if(isset($_POST['RegisterSumbit'])){
+      $ob=new StudentOpration();
+      $roll_number = $_POST["roll_number"];
+      $name = $_POST["name"];
+      $semester = $_POST["semester"];
+      $branch = $_POST["branch"];
+      $college = $_POST["college"];
+      $password = $_POST["password"];
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          $ob->insertStudent($roll_number, $name, $semester, $branch, $college, $password);
+      } else {
+          echo "Invalid request method";
+      }
+      // $ob->selectStudent($roll_number);
+    }
+
+    // if the data is logined by the students/Admin.
+      $exist_lable_val="none";
+
+      if(isset($_POST['Login-btn'])){
+
+
+          $rollno = $_POST["rollnum"];
+          $password = $_POST["password"];
+          $user=$_POST["TypesUser"];
+
+
+          if($user=="Students"){
+              $ob=new StudentOpration();
+              $isexist=$ob->chkStudent($rollno,$password);
+              if($isexist){
+                  echo "student exist";
+                  header("Location: Student/status.php"); 
+              }
+              else{
+                  echo "user not avaliable";
+                  $exist_lable_val="block";
+                  // header("Location: Login.php"); 
+              }
+              
+              session_start();
+              $_SESSION["rollnum"] = $rollno;
+              $_SESSION["UserType"]= $user;
+          }
+          else if($user=="Admin"){
+              $ob=new AdminOpration();
+              $isexist=$ob->chkAdmin($rollno,$password);
+              if($isexist){
+                  echo "Admin exist";
+              }
+              else{
+                  echo "Admin not avaliable";
+                  $exist_lable_val="block";
+                  //header("Location: Login.php"); 
+              }
+              
+              session_start();
+              $_SESSION["rollnum"] = $rollno;
+              $_SESSION["UserType"]= $user;
+          }
+          else{
+              echo "incorrect";
+              $exist_lable_val="block";
+              // header("Location: Login.php"); 
+          }
   }
-  // $ob->selectStudent($roll_number);
-}
-
-
 ?> 
 
 
@@ -53,13 +112,18 @@ if(isset($_POST['RegisterSumbit'])){
                 max-width: 300px; /* Adjust as needed */
             }
         }
+
+        #exist-lable{
+          display:<?php echo $exist_lable_val; ?>;
+        }
+        
       </style>
     </head>
 
 <body>
   <div class="outer-flex">
     <h1>Sign in</h1>
-    <form action="./AfterLogin.php" method="post">
+    <form action="./Login.php" method="post">
     
     <!-- <div class="mb-2">
     <label for="exampleFormControlInput1" class="form-label">User Type</label>
@@ -74,7 +138,7 @@ if(isset($_POST['RegisterSumbit'])){
     </div>
       </div> -->
 
-      
+      <label for="exampleFormControlInput1" class="form-label">Enter User Type</label>
       <select name="TypesUser" id="TypesUser">
         <option value="Students">Students</option>
         <option value="Admin">Admin</option>
@@ -88,11 +152,17 @@ if(isset($_POST['RegisterSumbit'])){
         <label for="exampleFormControlInput2" class="form-label">Password </label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password" required>
       </div>
-      <button type="submit" class="btn btn-primary">Login</button>
+
+      <button type="submit" class="btn btn-primary" name="Login-btn" id="Login-btn">Login</button>
       
       <a href=".\register.php">
         <button type="button" class="btn btn-primary">SignUp</button>
       </a>
+
+        <br>
+
+      <label for="exampleFormControlInput2" class="form-label" id="exist-lable">The user does not exists. </label>
+      
     </form>
   </div>
 </body>

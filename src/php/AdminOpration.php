@@ -53,5 +53,18 @@ class AdminOpration {
         }
         $conn->close();
     }
+    public function chkAdmin($uname,$password) {
+        $conn = $this->connect();
+        $sql = "SELECT * from $this->table WHERE Adminid ='$uname' and password='$password';";
+        $result = $conn->query($sql);
+        if ($result->num_rows == 1 ) {
+            return true;
+            // echo "exist";
+        } else {
+            return false;
+            // echo "nononononononon";
+        }
+        $conn->close();
+    }
 }
 ?>

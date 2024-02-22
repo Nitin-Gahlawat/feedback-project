@@ -1,8 +1,3 @@
-<!-- Notes
-
-//operation update for the table a table name is given as a data member
-
- -->
 <?php
 
 class GrievanceOperation {
@@ -10,7 +5,7 @@ class GrievanceOperation {
     private $username = "root";
     private $password = "";
     private $dbname = "feedback";
-    private $table='grievance';     //operation update for the table
+    private $table='grievance';   
 
     // Establishing database connection
     private function connect() {
