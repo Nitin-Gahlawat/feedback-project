@@ -1,24 +1,24 @@
 <?php
 class StudentOpration {
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "feedback";
-    private $table= "Student";
+    private static $servername = "localhost";
+    private static $username = "root";
+    private static $password = "";
+    private static $dbname = "feedback";
+    private static $table= "Student";
 
     // Establishing database connection
-    private function connect() {
-        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+    private static function connect() {
+        $conn = new mysqli(StudentOpration::$servername, StudentOpration::$username, StudentOpration::$password, StudentOpration::$dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
         return $conn;
     }
 
-    // Insert data into $this->table table
-    public function insertStudent($roll_number, $name, $semester, $branch, $college, $password) {
-        $conn = $this->connect();
-        $sql = "INSERT INTO $this->table (roll_number, name, semester, branch, college, password)
+    // Insert data into ".StudentOpration::$table." table
+    public static function insertStudent($roll_number, $name, $semester, $branch, $college, $password) {
+        $conn = StudentOpration::connect();
+        $sql = "INSERT INTO ".StudentOpration::$table." (roll_number, name, semester, branch, college, password)
                 VALUES ('$roll_number', '$name', '$semester', '$branch', '$college', '$password')";
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully<br>";
@@ -28,10 +28,10 @@ class StudentOpration {
         $conn->close();
     }
 
-    // Update data in $this->table table
-    public function updateStudent($roll_number, $name, $semester, $branch, $college, $password) {
-        $conn = $this->connect();
-        $sql = "UPDATE $this->table
+    // Update data in ".StudentOpration::$table." table
+    public static function updateStudent($roll_number, $name, $semester, $branch, $college, $password) {
+        $conn = StudentOpration::connect();
+        $sql = "UPDATE ".StudentOpration::$table."
                 SET name='$name', semester='$semester', branch='$branch', college='$college', password='$password'
                 WHERE roll_number='$roll_number'";
         if ($conn->query($sql) === TRUE) {
@@ -42,10 +42,10 @@ class StudentOpration {
         $conn->close();
     }
 
-    // Delete data from $this->table table
-    public function deleteStudent($roll_number) {
-        $conn = $this->connect();
-        $sql = "DELETE FROM $this->table WHERE roll_number='$roll_number'";
+    // Delete data from ".StudentOpration::$table." table
+    public static function deleteStudent($roll_number) {
+        $conn = StudentOpration::connect();
+        $sql = "DELETE FROM ".StudentOpration::$table." WHERE roll_number='$roll_number'";
         if ($conn->query($sql) === TRUE) {
             echo "Record deleted successfully";
         } else {
@@ -55,9 +55,9 @@ class StudentOpration {
     }
 
 
-    public function selectStudent($roll_number) {
-        $conn = $this->connect();
-        $sql = "SELECT * from $this->table WHERE roll_number='$roll_number'";
+    public static function selectStudent($roll_number) {
+        $conn = StudentOpration::connect();
+        $sql = "SELECT * from ".StudentOpration::$table." WHERE roll_number='$roll_number'";
 
         $result = $conn->query($sql);
 
@@ -74,9 +74,9 @@ class StudentOpration {
         $conn->close();
     }
 
-    public function getSemester($roll_number) {
-        $conn = $this->connect();
-        $sql = "SELECT semester from $this->table WHERE roll_number='$roll_number'";
+    public static function getSemester($roll_number) {
+        $conn = StudentOpration::connect();
+        $sql = "SELECT semester from ".StudentOpration::$table." WHERE roll_number='$roll_number'";
 
         $result = $conn->query($sql);
 
@@ -84,9 +84,9 @@ class StudentOpration {
         return result;
     }
 
-    public function chkStudent($uname,$password) {
-        $conn = $this->connect();
-        $sql = "SELECT * from $this->table WHERE roll_number ='$uname' and password='$password';";
+    public static function chkStudent($uname,$password) {
+        $conn = StudentOpration::connect();
+        $sql = "SELECT * from ".StudentOpration::$table." WHERE roll_number ='$uname' and password='$password';";
         $result = $conn->query($sql);
         if ($result->num_rows == 1 ) {
             return true;

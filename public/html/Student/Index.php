@@ -11,14 +11,13 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
 <?php
 
  if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])){
-    $ob=new GrievanceOperation();
     $roll=$_SESSION["roll"];
     $subject=$_POST['subject-dropdown'];
     $date=$_POST['date'];
     $topic=$_POST['topic'];
     $msg=$_POST['msg'];
     $date=$_POST["date"];
-    $ob->insertGrievance($roll,$topic, $msg, $subject, $date);
+    GrievanceOperation::insertGrievance($roll,$topic, $msg, $subject, $date);
     echo "<script> alert('"."FeedBack Added sucessfully"."') </script>";
   }
 ?>

@@ -1,25 +1,25 @@
 <?php
 
 class GrievanceOperation {
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "feedback";
-    private $table='grievance';   
+    private static $servername = "localhost";
+    private static $username = "root";
+    private static $password = "";
+    private static $dbname = "feedback";
+    private static $table='grievance';   
 
     // Establishing database connection
-    private function connect() {
-        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+    private static function connect() {
+        $conn = new mysqli(GrievanceOperation::$servername, GrievanceOperation::$username, GrievanceOperation::$password, GrievanceOperation::$dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
         return $conn;
     }
 
-    // Insert data into $this->table table
-    public function insertGrievance($roll,$topic, $msg, $subject, $date) {
-        $conn = $this->connect();
-        $sql = "INSERT INTO $this->table (roll, FeedBackMsg,subject,DateTime,topic)
+    // Insert data into ".GrievanceOperation::$table." table
+    public static function insertGrievance($roll,$topic, $msg, $subject, $date) {
+        $conn = GrievanceOperation::connect();
+        $sql = "INSERT INTO ".GrievanceOperation::$table." (roll, FeedBackMsg,subject,DateTime,topic)
                 VALUES ($roll, '$msg', '$subject',$date,'$topic')";
         if ($conn->query($sql) === TRUE) {
             // echo "New record created successfully";
@@ -29,10 +29,10 @@ class GrievanceOperation {
         $conn->close();
     }
 
-    // Update data in $this->table table
-    public function updateGrievance($roll, $msg, $subject, $date) {
-        $conn = $this->connect();
-        $sql = "UPDATE $this->table
+    // Update data in ".GrievanceOperation::$table." table
+    public static function updateGrievance($roll, $msg, $subject, $date) {
+        $conn = GrievanceOperation::connect();
+        $sql = "UPDATE ".GrievanceOperation::$table."
                 SET msg='$msg', subject='$subject', date='$date'
                 WHERE roll='$roll'";
         if ($conn->query($sql) === TRUE) {
@@ -43,10 +43,10 @@ class GrievanceOperation {
         $conn->close();
     }
 
-    // Delete data from $this->table table
-    public function deleteGrievance($roll) {
-        $conn = $this->connect();
-        $sql = "DELETE FROM $this->table WHERE roll='$roll'";
+    // Delete data from ".GrievanceOperation::$table." table
+    public static function deleteGrievance($roll) {
+        $conn = GrievanceOperation::connect();
+        $sql = "DELETE FROM ".GrievanceOperation::$table." WHERE roll='$roll'";
         if ($conn->query($sql) === TRUE) {
             echo "Record deleted successfully";
         } else {
@@ -55,10 +55,10 @@ class GrievanceOperation {
         $conn->close();
     }
 
-    // Select all data from $this->table table
-    public function selectAllGrievances() {
-        $conn = $this->connect();
-        $sql = "SELECT * FROM $this->table";
+    // Select all data from ".GrievanceOperation::$table." table
+    public static function selectAllGrievances() {
+        $conn = GrievanceOperation::connect();
+        $sql = "SELECT * FROM ".GrievanceOperation::$table."";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -71,9 +71,9 @@ class GrievanceOperation {
     }
 
 
-    public function selectGrievances($roll) {
-        $conn = $this->connect();
-        $sql = "SELECT * FROM $this->table where roll='$roll'";
+    public static function selectGrievances($roll) {
+        $conn = GrievanceOperation::connect();
+        $sql = "SELECT * FROM ".GrievanceOperation::$table." where roll='$roll'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {

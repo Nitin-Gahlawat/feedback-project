@@ -13,7 +13,6 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
 
    // if the data is registed by the students
     if(isset($_POST['RegisterSumbit'])){
-      $ob=new StudentOpration();
       $roll_number = $_POST["roll_number"];
       $name = $_POST["name"];
       $semester = $_POST["semester"];
@@ -21,7 +20,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
       $college = $_POST["college"];
       $password = $_POST["password"];
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $ob->insertStudent($roll_number, $name, $semester, $branch, $college, $password);
+        StudentOpration::insertStudent($roll_number, $name, $semester, $branch, $college, $password);
       } else {
           echo "Invalid request method";
       }
@@ -41,8 +40,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
 
 
           if($user=="Students"){
-              $ob=new StudentOpration();
-              $isexist=$ob->chkStudent($rollno,$password);
+              $isexist=StudentOpration::chkStudent($rollno,$password);
               if($isexist){
                   echo "student exist";
                   header("Location: Student/index.php"); 
@@ -58,8 +56,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
               $_SESSION["UserType"]= $user;
           }
           else if($user=="Admin"){
-              $ob=new AdminOpration();
-              $isexist=$ob->chkAdmin($rollno,$password);
+              $isexist=AdminOpration::chkAdmin($rollno,$password);
               if($isexist){
                   echo "Admin exist";
               }
@@ -141,8 +138,8 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
 
       <label for="exampleFormControlInput1" class="form-label">Enter User Type</label>
       <select name="TypesUser" id="TypesUser">
-        <option value="Students">Students</option>
         <option value="Admin">Admin</option>
+        <option value="Students">Students</option>
       </select>
 
       <div class="mb-2">

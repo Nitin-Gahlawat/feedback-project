@@ -1,24 +1,24 @@
 <?php
 
 class AdminOpration {
-    private $servername = "localhost";
-    private $username = "root";
-    private $password = "";
-    private $dbname = "feedback";
-    private $table="Admins";
+    private static $servername = "localhost";
+    private static $username = "root";
+    private static $password = "";
+    private static $dbname = "feedback";
+    private static $table="Admins";
     // Establishing database connection
-    private function connect() {
-        $conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+    private static function  connect() {
+        $conn = new mysqli(AdminOpration::$servername, AdminOpration::$username, AdminOpration::$password, AdminOpration::$dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
         return $conn;
     }
 
-    // Insert data into $this->table table
-    public function insertAdmin($username, $password) {
-        $conn = $this->connect();
-        $sql = "INSERT INTO $this->table (username, password)
+    // Insert data into ".AdminOpration::$table." table
+    public static function  insertAdmin($username, $password) {
+        $conn = AdminOpration::connect();
+        $sql = "INSERT INTO ".AdminOpration::$table." (username, password)
                 VALUES ('$username', '$password')";
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
@@ -28,10 +28,10 @@ class AdminOpration {
         $conn->close();
     }
 
-    // Update data in $this->table table
-    public function updateAdmin($adminid, $username, $password) {
-        $conn = $this->connect();
-        $sql = "UPDATE $this->table
+    // Update data in ".AdminOpration::$table." table
+    public static function  updateAdmin($adminid, $username, $password) {
+        $conn = AdminOpration::connect();
+        $sql = "UPDATE ".AdminOpration::$table."
                 SET username='$username', password='$password'
                 WHERE adminid='$adminid'";
         if ($conn->query($sql) === TRUE) {
@@ -42,10 +42,10 @@ class AdminOpration {
         $conn->close();
     }
 
-    // Delete data from $this->table table
-    public function deleteAdmin($adminid) {
-        $conn = $this->connect();
-        $sql = "DELETE FROM $this->table WHERE adminid='$adminid'";
+    // Delete data from ".AdminOpration::$table." table
+    public static function  deleteAdmin($adminid) {
+        $conn = AdminOpration::connect();
+        $sql = "DELETE FROM ".AdminOpration::$table." WHERE adminid='$adminid'";
         if ($conn->query($sql) === TRUE) {
             echo "Record deleted successfully";
         } else {
@@ -53,9 +53,9 @@ class AdminOpration {
         }
         $conn->close();
     }
-    public function chkAdmin($uname,$password) {
-        $conn = $this->connect();
-        $sql = "SELECT * from $this->table WHERE Adminid ='$uname' and password='$password';";
+    public static function  chkAdmin($uname,$password) {
+        $conn = AdminOpration::connect();
+        $sql = "SELECT * from ".AdminOpration::$table." WHERE Adminid ='$uname' and password='$password';";
         $result = $conn->query($sql);
         if ($result->num_rows == 1 ) {
             return true;
