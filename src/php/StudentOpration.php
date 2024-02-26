@@ -73,6 +73,17 @@ class StudentOpration {
         }
         $conn->close();
     }
+
+    public function getSemester($roll_number) {
+        $conn = $this->connect();
+        $sql = "SELECT semester from $this->table WHERE roll_number='$roll_number'";
+
+        $result = $conn->query($sql);
+
+        $conn->close();
+        return result;
+    }
+
     public function chkStudent($uname,$password) {
         $conn = $this->connect();
         $sql = "SELECT * from $this->table WHERE roll_number ='$uname' and password='$password';";

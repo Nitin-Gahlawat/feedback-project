@@ -17,12 +17,12 @@ class GrievanceOperation {
     }
 
     // Insert data into $this->table table
-    public function insertGrievance($roll, $msg, $subject, $dateTime) {
+    public function insertGrievance($roll,$topic, $msg, $subject, $date) {
         $conn = $this->connect();
-        $sql = "INSERT INTO $this->table (roll, msg, subject, dateTime)
-                VALUES ('$roll', '$msg', '$subject', '$dateTime')";
+        $sql = "INSERT INTO $this->table (roll, FeedBackMsg,subject,DateTime,topic)
+                VALUES ($roll, '$msg', '$subject',$date,'$topic')";
         if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
+            // echo "New record created successfully";
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -30,10 +30,10 @@ class GrievanceOperation {
     }
 
     // Update data in $this->table table
-    public function updateGrievance($roll, $msg, $subject, $dateTime) {
+    public function updateGrievance($roll, $msg, $subject, $date) {
         $conn = $this->connect();
         $sql = "UPDATE $this->table
-                SET msg='$msg', subject='$subject', dateTime='$dateTime'
+                SET msg='$msg', subject='$subject', date='$date'
                 WHERE roll='$roll'";
         if ($conn->query($sql) === TRUE) {
             echo "Record updated successfully";

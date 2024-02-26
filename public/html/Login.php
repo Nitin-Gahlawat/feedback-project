@@ -25,6 +25,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
       } else {
           echo "Invalid request method";
       }
+      echo "<script> alert('"."Register sucessfull"."') </script>";
       // $ob->selectStudent($roll_number);
     }
 
@@ -44,7 +45,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
               $isexist=$ob->chkStudent($rollno,$password);
               if($isexist){
                   echo "student exist";
-                  header("Location: Student/status.php"); 
+                  header("Location: Student/index.php"); 
               }
               else{
                   echo "user not avaliable";
@@ -53,7 +54,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
               }
               
               session_start();
-              $_SESSION["rollnum"] = $rollno;
+              $_SESSION["roll"] = $rollno;
               $_SESSION["UserType"]= $user;
           }
           else if($user=="Admin"){
