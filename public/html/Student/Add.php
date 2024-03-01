@@ -1,3 +1,25 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>  
+
+<?php
+include dirname(__FILE__,2).'\comman\bootstrap.php';
+
+require_once dirname(__FILE__,4).'/src/php/StudentOpration.php';
+require_once dirname(__FILE__,4).'/src/php/GrievanceOperation.php';
+require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
+require_once dirname(__FILE__,4).'/src/php/SubjectDatabase.php';
+?>
+<?php
+
+
+
+
+$rollint=$_SESSION['roll'];
+$res=SubjectDatabase::getAllSubjects(StudentOpration::getSemester($rollint));
+?>
+
 <style>
  .form-group{
     padding: 1.2rem;
@@ -9,7 +31,7 @@
   label{
     margin-bottom:.5rem;
 
-  }
+}
     
 </style>
 
@@ -20,29 +42,31 @@
 
       <div class="form-group">
           <label for="topic">Enter topic</label>
-          <input type="text" class="form-control" id="topic"  placeholder="Enter your topic" name="topic"></input>
+          <input type="text" class="form-control" id="topic"  placeholder="Enter your topic" name="topic" autocomplete="off"></input>
         </div>
 
         <div class="form-group">
-          <label for="message">Message</label>
+          <label for="message">Enter FeedBack</label>
           <textarea class="form-control" id="message" rows="3" placeholder="Enter your message" name="msg"></textarea>
         </div>
         <div class="form-group">
-          <label for="date">Date</label>
-          <input type="date" class="form-control" id="date" name="date" max="" min="">
+          <label for="date">Date Of FeedBack</label>
+          <input type="text" class="form-control" id="datepicker" name="date" autocomplete="off" placeholder="DD-MM-YYYY" readonly>
         </div>
         <div class="form-group">
           <label for="dropdown">Subject</label>
           <select class="form-control" id="dropdown" name="subject-dropdown">
-            <option value="option1">Option 1</option>
-            <option value="option2">Option 2</option>
-            <option value="option3">Option 3</option>
+            <?php
+              for ($i=0; $i < count($res); $i++) { 
+                echo "<option value=".$res[$i].">".$res[$i]."</option>";  
+              }
+
+            ?>
           </select>
         </div>
         <div class="form-group">
-          <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
           <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="sumbit  " name="Adding">Button</button>
+            <button class="btn btn-primary" type="sumbit" name="Adding">Add Feedback</button>
           </div>
         </div >
       </form>
@@ -51,15 +75,17 @@
 </div> 
 
 
-<script>
-        // var today = new Date().toISOString().split('T')[0];
-        // var sevenDaysAgo = new Date();
-        // sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-        // var minDate = sevenDaysAgo.toISOString().split('T')[0];
 
-        // document.getElementById("date").max = today;
-        // document.getElementById("date").min = minDate;
 
-       
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <script>
 
-</script>
+  $( function() {
+    $( "#datepicker" ).datepicker({ minDate: "-7D",
+      maxDate: new Date() ,
+      dateFormat: "dd-mm-yy"
+    });
+  } );
+  </script>

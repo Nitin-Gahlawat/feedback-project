@@ -76,12 +76,16 @@ class StudentOpration {
 
     public static function getSemester($roll_number) {
         $conn = StudentOpration::connect();
-        $sql = "SELECT semester from ".StudentOpration::$table." WHERE roll_number='$roll_number'";
+        $sql = "SELECT semester from ".StudentOpration::$table." WHERE roll_number=$roll_number";
 
         $result = $conn->query($sql);
-
         $conn->close();
-        return result;
+
+        while($row = $result->fetch_assoc()) {
+            foreach ($row as $key => $value) {
+                return $value;
+            }
+        }
     }
 
     public static function chkStudent($uname,$password) {

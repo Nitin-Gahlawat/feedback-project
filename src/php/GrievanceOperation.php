@@ -20,7 +20,7 @@ class GrievanceOperation {
     public static function insertGrievance($roll,$topic, $msg, $subject, $date) {
         $conn = GrievanceOperation::connect();
         $sql = "INSERT INTO ".GrievanceOperation::$table." (roll, FeedBackMsg,subject,DateTime,topic)
-                VALUES ($roll, '$msg', '$subject',$date,'$topic')";
+                VALUES ($roll, '$msg', '$subject',STR_TO_DATE('".$date."', '%e-%m-%Y') ,'$topic')";
         if ($conn->query($sql) === TRUE) {
             // echo "New record created successfully";
         } else {
