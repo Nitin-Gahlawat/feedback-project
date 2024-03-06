@@ -24,7 +24,7 @@ $res=SubjectDatabase::getAllSubjects(StudentOpration::getSemester($rollint));
  .form-group{
     padding: 1.2rem;
   }
-  form{
+  .AddSideBox{
     border: 2px solid white;
     border-radius: 1.3rem;
   }
@@ -38,7 +38,7 @@ $res=SubjectDatabase::getAllSubjects(StudentOpration::getSemester($rollint));
 <div class="container mt-5" id="Add-form" Style="display:none;">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <form action="./index.php" method="post">
+      <form action="./index.php" method="post" class="AddSideBox">
 
       <div class="form-group">
           <label for="topic">Enter topic</label>

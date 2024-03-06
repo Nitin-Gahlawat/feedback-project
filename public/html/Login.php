@@ -5,13 +5,12 @@ include __Dir__.'\comman\bootstrap.php';
 require_once dirname(__FILE__,3).'/src/php/StudentOpration.php';
 require_once dirname(__FILE__,3).'/src/php/GrievanceOperation.php';
 require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
-
-
+require_once dirname(__FILE__,3).'\public\html\components\navbar.php';
 ?>
  
  <?php
 
-   // if the data is registed by the students
+   // if the data is registed by the Student
     if(isset($_POST['RegisterSumbit'])){
       $roll_number = $_POST["roll_number"];
       $name = $_POST["name"];
@@ -28,7 +27,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
       // $ob->selectStudent($roll_number);
     }
 
-    // if the data is logined by the students/Admin.
+    // if the data is logined by the Student/Admin.
       $exist_lable_val="none";
 
       if(isset($_POST['Login-btn'])){
@@ -39,7 +38,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
           $user=$_POST["TypesUser"];
 
 
-          if($user=="Students"){
+          if($user=="Student"){
               $isexist=StudentOpration::chkStudent($rollno,$password);
               if($isexist){
                   echo "student exist";
@@ -92,11 +91,11 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 80vh;
             flex-direction: column;
         }
 
-        form {
+        .login-form {
             width: 100%;
             max-width: 400px; /* Adjust as needed */
             padding: 20px;
@@ -121,7 +120,7 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
 <body>
   <div class="outer-flex">
     <h1>Sign in</h1>
-    <form action="./Login.php" method="post">
+    <form action="./Login.php" method="post" class="login-form">
     
     <!-- <div class="mb-2">
     <label for="exampleFormControlInput1" class="form-label">User Type</label>
@@ -138,8 +137,8 @@ require_once dirname(__FILE__,3).'/src/php/AdminOpration.php';
 
       <label for="exampleFormControlInput1" class="form-label">Enter User Type</label>
       <select name="TypesUser" id="TypesUser">
+        <option value="Student">Student</option>
         <option value="Admin">Admin</option>
-        <option value="Students">Students</option>
       </select>
 
       <div class="mb-2">

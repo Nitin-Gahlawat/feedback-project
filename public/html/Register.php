@@ -1,5 +1,6 @@
 <?php
 include __Dir__.'\comman\bootstrap.php';
+require_once dirname(__FILE__,3).'\public\html\components\navbar.php';
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@ include __Dir__.'\comman\bootstrap.php';
             align-items:     center;
         }
 
-        form {
+        .Register-form {
             width: 100%;
             max-width: 400px; 
             padding: 20px;
@@ -67,7 +68,7 @@ include __Dir__.'\comman\bootstrap.php';
 <body>
 <div class="outer-flex">
     <h2>Student Information Form</h2>
-    <form action="./Login.php" method="post">
+    <form action="./Login.php" method="post" class="Register-form">
         <label for="roll_number">Roll Number:</label><br>
         <input type="number" id="roll_number" name="roll_number" required><br>
 
