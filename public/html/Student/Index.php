@@ -38,74 +38,49 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
    
   <?php
   require_once "./Add.php";
-  // require_once "./View.php";
+   require_once "./View.php";
   // require_once "./Update.php";
   // require_once "./History.php"
   ?>
 
 </body>
   <script>
+      function setActive(tab) {
+            const TabsData={
+                //Tabs(or FileName):formElement (for displaying the data)
+                "ADD":"Add-form",
+                "View":"View-data",
+              }
+              for (let key in TabsData) {
+                if(tab==key){
+                  //Adding the tab active
+                  let e1=document.getElementById(key);
+                  
+                  e1.classList.add('btn-primary');
+                  //Displaying the data
+                  document.getElementById(TabsData[key]).style.display="block";
+                }
+                else{
+                  //Removing the Active Status of Other Elements
+                    let e1=document.getElementById(key);
+                    e1.classList.remove("btn-primary");
+                    //Hiding the data of the other tabs.
+                    document.getElementById(TabsData[key]).style.display="none";
+                }
 
+              }
+                
+          }
 
-            let ADD = document.getElementById("ADD");
-            let ADD_form = document.getElementById("Add-form");
+            //Initial call to set the "ADD" Button as the Active.
+            setActive("ADD");
 
-
-            // let View = document.getElementById("View");
-            // let View_data = document.getElementById("View-data");
-
-            // let Update = document.getElementById("Update");
-            // let Update_data = document.getElementById("update_page");
-
-            // let History = document.getElementById("History");
-            // let History_page = document.getElementById("History_page");
-
-
-
-            ADD_form.style.display="block";
-            // Update_data.style.display="none";
-            // View_data.style.display="none";
-            // History_page.style.display="none";
-
-            
-            ADD.addEventListener("click", ()=> {
-              ADD_form.style.display="block";
-              // Update_data.style.display="none";
-              // View_data.style.display="none";
-              // History_page.style.display="none";
+            document.getElementById("ADD").addEventListener("click", ()=> {
+              setActive("ADD");
             });
-
-            // Update.addEventListener("click", ()=> {
-            //   ADD_form.style.display="none";
-            //   Update_data.style.display="block";
-            //   View_data.style.display="none";
-            //   History_page.style.display="none";
-            // });
-
-            // View.addEventListener("click", ()=> {
-            //   ADD_form.style.display="none";
-            //   Update_data.style.display="none";
-            //   View_data.style.display="block";
-            //   History_page.style.display="none";
-            // });
-
-            // History.addEventListener("click", ()=> {
-            //   ADD_form.style.display="none";
-            //   Update_data.style.display="none";
-            //   View_data.style.display="none";
-            //   History_page.style.display="block";
-
-            // });
-
-            
+            document.getElementById("View").addEventListener("click", ()=> {
+              setActive("View");
+            });
     </script>
 </html>
 
-
-
-<?php
-        // session_start();
-        
-        // $ob=new GrievanceOperation();
-        // $ob->selectGrievances( $_SESSION["rollnum"]);
-?>
