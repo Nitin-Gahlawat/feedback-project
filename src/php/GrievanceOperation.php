@@ -72,19 +72,23 @@ class GrievanceOperation {
 
 
     public static function selectGrievances($roll) {
+        $allrecord=array();
         $conn = GrievanceOperation::connect();
-        $sql = "SELECT * FROM ".GrievanceOperation::$table." where roll='$roll'";
+        $sql = "SELECT DateTime,topic, FeedBackMsg,subject FROM ".GrievanceOperation::$table." where roll='$roll' order by DateTime desc";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+                $rowdata=array();
                 foreach ($row as $key => $value) {
-                    echo "$key: $value <br>";
+                    // echo "$key: $value <br>";
+                    $rowdata[count($rowdata)]=$value;
                 }
-                echo "<br>";
+                $allrecord[count($allrecord)]=$rowdata;
+                // echo "<br>";
+                
             }
-        } else {
-            echo "0 results";
-        }
+        } 
+        return $allrecord;
         
         $conn->close();
     }
