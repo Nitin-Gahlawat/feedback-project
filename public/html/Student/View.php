@@ -9,7 +9,7 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
 
 <style>
 .container {
-  width: 90vw;
+  width: 70vw !important;
   margin: 0 auto;
 }
 
@@ -39,13 +39,15 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
   border-bottom-right-radius:5px;
   border-bottom-left-radius:5px;
 }
+</style>
 <?php
 $test=GrievanceOperation::selectGrievances($_SESSION['roll']);
-
+if(isset($_POST['search'])){
+  $test=GrievanceOperation::selectGrievancesFromTo($_SESSION['roll'],$_POST['from'],$_POST['to']);
+}
 ?>
-</style>
 <div class="main-view"  id="View-data" Style="display:none" >
-<?php
+  <?php
 for ($i=0; $i < count($test); $i++) { 
 $j=0;
 ?>

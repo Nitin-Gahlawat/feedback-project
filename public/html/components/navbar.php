@@ -28,13 +28,10 @@
             <a class="Btn " aria-current="page" href="#" id="ADD" >Add</a>
           </li>
           <li class="nav-item">
-            <a class="Btn " aria-current="page" href="#" id="Update">Update</a>
-          </li>
-          <li class="nav-item">
             <a class="Btn " aria-current="page" href="#" id="View">View Status</a>
           </li>
           <li class="nav-item">
-            <a class="Btn " aria-current="page" href="#" id="History">History</a>
+            <a class="Btn " aria-current="page" href="#" id="Search">Search</a>
           </li>
         </ul>';
       }

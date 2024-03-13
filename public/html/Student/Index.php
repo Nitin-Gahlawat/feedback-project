@@ -9,7 +9,7 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
 ?>
 
 <?php
-
+  $activeTab="ADD";
  if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])){
     $roll=$_SESSION["roll"];
     $subject=$_POST['subject-dropdown'];
@@ -19,6 +19,9 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
     $date=$_POST["date"];
     GrievanceOperation::insertGrievance($roll,$topic, $msg, $subject, $date);
     echo "<script> alert('"."FeedBack Added sucessfully"."') </script>";
+  }
+  if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])){
+    $activeTab="View";
   }
 ?>
 
@@ -41,6 +44,7 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
    require_once "./View.php";
   // require_once "./Update.php";
   // require_once "./History.php"
+  require_once "./search.php"
   ?>
 
 </body>
@@ -50,6 +54,7 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
                 //Tabs(or FileName):formElement (for displaying the data)
                 "ADD":"Add-form",
                 "View":"View-data",
+                "Search":"search-data"
               }
               for (let key in TabsData) {
                 if(tab==key){
@@ -73,13 +78,15 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
           }
 
             //Initial call to set the "ADD" Button as the Active.
-            setActive("ADD");
-
+            setActive(<?php echo "'".$activeTab."'" ?>);
             document.getElementById("ADD").addEventListener("click", ()=> {
               setActive("ADD");
             });
             document.getElementById("View").addEventListener("click", ()=> {
               setActive("View");
+            });
+            document.getElementById("Search").addEventListener("click", ()=> {
+              setActive("Search");
             });
     </script>
 </html>

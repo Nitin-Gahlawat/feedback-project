@@ -92,5 +92,26 @@ class GrievanceOperation {
         
         $conn->close();
     }
+    public static function selectGrievancesFromTo($roll,$from,$to) {
+        $allrecord=array();
+        $conn = GrievanceOperation::connect();
+        $sql = "SELECT DateTime,topic, FeedBackMsg,subject FROM grievance where roll=1 and DateTime BETWEEN STR_TO_DATE('".$from."', '%e-%m-%Y') and STR_TO_DATE('".$to."', '%e-%m-%Y') order by DateTime desc;";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $rowdata=array();
+                foreach ($row as $key => $value) {
+                    // echo "$key: $value <br>";
+                    $rowdata[count($rowdata)]=$value;
+                }
+                $allrecord[count($allrecord)]=$rowdata;
+                // echo "<br>";
+                
+            }
+        } 
+        return $allrecord;
+        
+        $conn->close();
+    }
 }
 ?>
