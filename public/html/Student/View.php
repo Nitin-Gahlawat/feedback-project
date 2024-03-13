@@ -24,6 +24,7 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
   font-size: 15px;
   border-bottom-right-radius:0px;
   border-bottom-left-radius:0px;
+  color:white;
 }
 
 
@@ -43,20 +44,25 @@ $test=GrievanceOperation::selectGrievances($_SESSION['roll']);
 
 ?>
 </style>
-
+<div class="main-view"  id="View-data" Style="display:none" >
 <?php
 for ($i=0; $i < count($test); $i++) { 
 $j=0;
 ?>
-<div class="container mt-5">
-  <label for="date"><?php echo $test[$i][$j++]?></label>
+<div class="container mt-4" >
+  <label for="date"><?php 
+  if($i!==0 && $test[$i-1][$j]===$test[$i][$j])
+  $j++;
+  else
+    echo $test[$i][$j++];
+  ?></label>
   <button class="collapsible btn btn-primary"><?php echo $test[$i][$j++]?></button>
   <div class="content">
       <label for="message" class="mt-2 mb-2">Enter FeedBack</label>
-      <textarea class="form-control" id="message" rows="3" placeholder="<?php echo $test[$i][$j++]?>" name="msg"></textarea>
-      <label for="message" class="mt-2 mb-2">Subject</label>
+      <textarea class="form-control" id="message" rows="3" placeholder="<?php echo $test[$i][$j++]?>" name="msg" disabled></textarea>
+      <label for="message" class="mt-2 mb-2" >Subject</label>
       <input type="text" class="form-control mt-2 mb-2" id="datepicker" name="date" autocomplete="off" placeholder="<?php echo $test[$i][$j++]?>"
-        readonly>
+      disabled>
       <div class="d-grid gap-2 mt-2 mb-3">
         <button class="btn btn-primary" type="sumbit" name="Adding">Change FeedBack</button>
       </div>
@@ -65,6 +71,7 @@ $j=0;
 <?php
 }
 ?>
+</div>
 <script>
   var coll = document.getElementsByClassName("collapsible");
   var i;
