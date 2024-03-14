@@ -42,7 +42,7 @@ require_once dirname(__FILE__,3).'\public\html\components\navbar.php';
               $isexist=StudentOpration::chkStudent($rollno,$password);
               if($isexist){
                   echo "student exist";
-                  header("Location: Student/index.php"); 
+                  header("Location: Student/ADD.php"); 
               }
               else{
                   echo "user not avaliable";

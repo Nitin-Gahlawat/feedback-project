@@ -1,4 +1,5 @@
 <?php
+session_start();
 include dirname(__FILE__,2).'\comman\bootstrap.php';
 require_once dirname(__FILE__,4).'\public\html\components\navbar.php';
 require_once dirname(__FILE__,4).'/src/php/StudentOpration.php';
@@ -13,8 +14,8 @@ require_once dirname(__FILE__,4).'/src/php/AdminOpration.php';
 }
 </style>
 
-<div id="search-data">
-  <form action="./index.php" method="post" class="login-form">
+<div id="search-data" class="mt-4">
+  <form action="./View.php" method="post" class="login-form">
       <label for="date">From</label>
       <input type="text" class="form-control" id="datepicker1" name="from" autocomplete="off" placeholder="DD-MM-YYYY" value="24-02-2024" readonly>
       <label for="date">To</label>

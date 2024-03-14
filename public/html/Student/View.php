@@ -1,4 +1,5 @@
 <?php
+session_start();
 include dirname(__FILE__,2).'\comman\bootstrap.php';
 require_once dirname(__FILE__,4).'\public\html\components\navbar.php';
 require_once dirname(__FILE__,4).'/src/php/StudentOpration.php';
@@ -46,7 +47,7 @@ if(isset($_POST['search'])){
   $test=GrievanceOperation::selectGrievancesFromTo($_SESSION['roll'],$_POST['from'],$_POST['to']);
 }
 ?>
-<div class="main-view"  id="View-data" Style="display:none" >
+<div class="main-view"  id="View-data" >
   <?php
 for ($i=0; $i < count($test); $i++) { 
 $j=0;
