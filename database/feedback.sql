@@ -19,6 +19,11 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `feedback`
+
+CREATE Database feedback;
+
+use feedback;
+
 --
 
 -- --------------------------------------------------------

@@ -7,6 +7,8 @@ if (isset($_POST['Logout'])) {
     session_start();
     session_destroy();
     echo "<script>alert('Logout Sucessfull')</script>";
+    header("Refresh:0");
+
 }
 
 //**********************************************************************************************************
@@ -168,7 +170,6 @@ if (isset($_POST['RegisterSumbit'])) {
         </form>
     </div>
 </body>
-
 </html>
 
 

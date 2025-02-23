@@ -56,7 +56,8 @@ class AdminOpration
     public static function  chkAdmin($uname, $password)
     {
         $conn = DatabaseConnection::connect();
-        $sql = "SELECT * from " . AdminOpration::$table . " WHERE Adminid ='$uname' and password='$password';";
+        $sql = "SELECT * from " . AdminOpration::$table . " WHERE username ='$uname' and password='$password';";
+        echo $sql;
         $result = $conn->query($sql);
         if ($result->num_rows == 1) {
             return true;

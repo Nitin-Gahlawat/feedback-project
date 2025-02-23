@@ -211,6 +211,8 @@ function isPHP_SESSION_ACTIVE()
 
         }
         document.getElementById('Tabs').innerHTML = `<li class="nav-item"></li>  `
+        TabsData = [
+        ]
 
     }
     //**********************************************************************************************************

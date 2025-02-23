@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])) {
         .form-group {
             padding: 0.8rem;
             width: 42vw;
+            
         }
 
         #AddSideBox {
@@ -89,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])) {
 
         .dropdown-add-from {
             width: 100%;
+            background:RGB(33,37,41);
         }
 
         .divtwo label {
@@ -108,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])) {
 
             .onediv {
                 border-right: none !important;
+                
             }
 
             .from-flex {
@@ -169,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])) {
                                 </div>
                                 <div class="form-group">
                                     <label for="date">Date Of Feedback</label>
-                                    <input type="text" class="form-control" id="datepicker" name="date" autocomplete="off" placeholder="DD-MM-YYYY" readonly>
+                                    <input type="text" class="form-control" id="datepicker" name="date" autocomplete="off" placeholder="DD-MM-YYYY" readonly required value="01-01-2025">
                                 </div>
                             </div>
                             <div class="divtwo">
@@ -207,9 +210,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['Adding'])) {
         $("#datepicker").datepicker({
             minDate: "-7D",
             maxDate: new Date(),
-            dateFormat: "dd-mm-yy"
+            dateFormat: "dd-mm-yy",
+            defaultDate: new Date() // You can replace this with any default date like '01-01-2025'
         });
     });
+
 
     //**********************************************************************************************************
     //                                 Used to change the question based on the user input 

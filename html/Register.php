@@ -43,6 +43,7 @@ include __Dir__ . '\common\Navbar.php';
             border-radius: 5px;
             border: 1px solid #ccc;
             box-sizing: border-box;
+            background:RGB(33,37,41);
         }
 
         #LoginBtn{
